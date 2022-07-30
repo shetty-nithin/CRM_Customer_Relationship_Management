@@ -38,4 +38,4 @@ const ticketSchema = new mongoose.Schema({
     }
 }, {versionKey : false}) // this will ensure __v is not created by mongoose
 
-module.exports = mongoose.model(" Ticket", ticketSchema);
+module.exports = mongoose.model("Ticket", ticketSchema);

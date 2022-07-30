@@ -5,7 +5,7 @@ module.exports = {
         engineer : "ENGINEER"
     },
     userStatus : {
-        pending : "PENDNG",
+        pending : "PENDING",
         approved : "APPROVED",
         rejected : "REJECTED"
     },
