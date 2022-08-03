@@ -5,10 +5,12 @@
 
 const express = require("express");
 const app = express();
-const serverConfig = require('./configs/server.config');
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+
 const dbConfig = require("./configs/db.config");
+const serverConfig = require('./configs/server.config');
+
+const mongoose = require("mongoose");
 const User = require("./models/user.model");
 const bcrypt = require("bcryptjs");
 
@@ -59,7 +61,7 @@ async function init(){
                 name : "user1",
                 userId : "u1",
                 password : bcrypt.hashSync("welcome1", 8),
-                email : "user1@gmail.com",
+                email : "shettynithin007@gmail.com",
                 userType : "CUSTOMER",
         });
         const user2 = await User.create({

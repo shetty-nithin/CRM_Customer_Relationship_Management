@@ -9,8 +9,10 @@
 const Ticket = require("../models/ticket.model");
 const constants = require("../utils/constants");
 const User = require("../models/user.model");
+const sendNotificationReq = require("../utils/notificationClient");
 
 
+// send the email after creating the ticket to all the stake
 exports.createTicket = async (req, res) => {
     try{
         // read the request and create the ticket object
@@ -21,7 +23,7 @@ exports.createTicket = async (req, res) => {
             status : req.body.status,
             reporter : req.userId //from access token : decode.id
         }
-
+        
         // find the engineer available and attach the ticket object
         // assignment 2: choose the engineer who has lease number of tickets
         const engineer = await User.find({userType : constants.userTypes.engineer}).sort({ticketsAssigned : 1}).findOne({
@@ -42,7 +44,9 @@ exports.createTicket = async (req, res) => {
         const ticketCreated = await Ticket.create(ticketObj);
         if(ticketCreated){
             //update the customer document.
-            const customer = await User.findOne({userId : req.userId});
+            const customer = await User.findOne({
+                userId : req.userId
+            });
             customer.ticketsCreated.push(ticketCreated._id);
             await customer.save();
             
@@ -51,9 +55,13 @@ exports.createTicket = async (req, res) => {
                 engineer.ticketsAssigned.push(ticketCreated._id);
                 await engineer.save();
             }
-        }
-        res.status(201).send(ticketCreated);
 
+            sendNotificationReq(`Ticket created with id : ${ticketCreated._id}`,"ticket has raised", `${customer.email}, ${engineer.email}, shettynithin007@gmail.com`, "CRM APP");
+            // sendNotificationReq(`Ticket created with id : ${ticketCreated._id}`,"ticket has raised", `shettynithin007@gmail.com`, "CRM APP");
+            res.status(201).send(ticketCreated);
+        }
+
+        
     }catch(err){
         console.log("Error while inserting the object into the DB", err.message);
         return res.status(500).send({
@@ -62,13 +70,16 @@ exports.createTicket = async (req, res) => {
     }
 }
 
+
+
+
 exports.getAllTickets = async (req, res) => {
     // need to find the userType. And depending on the userType, we have to frame the search field
     const user = await User.findOne({userId : req.userId});
     const qureyObj = {};
     const ticketsCreated = user.ticketsCreated;
     const ticketsAssigned = user.ticketsAssigned;
-
+    
     if(user.userType == constants.userTypes.customer){
         // query for fetching all the ticket raised by the user
         if(!ticketsCreated){
