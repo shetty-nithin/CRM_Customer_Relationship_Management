@@ -7,30 +7,27 @@ const isValidUser = async (req, res, next) => {
     const ticket = await Ticket.findOne({_id : req.params.id});
 
     if(callingUser.userType == constants.userTypes.customer){
-        const reporter = ticket.reporter;
+        const reporter = ticket.reporter; // reporter contains the userId of the reporter
         if(callingUser.userId != reporter){
             return res.status(403).send({
-                message : "You are not a reported user."
+                message : "You are not the creator of this ticket."
             })
         }
-    }else if(callingUser.userType == constants.userTypes.engineer){
+    }
+    else if(callingUser.userType == constants.userTypes.engineer){
         const reporterId = ticket.reporter;
         const engineerId = ticket.assignee;
 
         if(callingUser.userId != reporterId && callingUser.userId != engineerId){
             return res.status(403).send({
-                message : "You are not a assigned engineer"
+                message : "You are neither the creator nor the assigned engineer of this ticket."
             });
         }
     }
 
-    // if the update requires change in assignee
-    // 1. Only admin should be allowed to this change.
-    // 2. Assignee should be a valid engineer
-
     if(req.body.assignee && req.body.assignee != ticket.assignee && callingUser.userType != constants.userTypes.admin){
         return res.status(403).send({
-            message : "Only admin is allowed to reassign the engineer to the the ticket"
+            message : "Only admin is allowed to reassign the engineer to the the ticket."
         })
     }
 

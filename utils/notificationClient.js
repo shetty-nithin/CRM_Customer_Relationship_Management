@@ -4,7 +4,7 @@
 const Client = require("node-rest-client").Client;
 const client = new Client();  // this is the client obj which will be used for calling the REST API
 
-// const serverConfig = require("../configs/server.config");
+const serverConfig = require("../configs/server.config");
 
 // exposing the method which takes the request parameters for sending the notification request
 // to the notification sevice.
@@ -29,7 +29,7 @@ module.exports = (subject, content, recepients, requester) => {
     }
 
     try {
-        client.post("http://localhost:8080/notiserve/api/v1/notifications", args, (data, res) => {
+        client.post(serverConfig.NOTIFICATION_REST_URL, args, (data, res) => {
             console.log("request sent");
             console.log(data); 
         })

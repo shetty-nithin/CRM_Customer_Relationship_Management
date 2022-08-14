@@ -7,21 +7,19 @@ const verifyToken = (req, res, next) => {
 
     const token = req.headers["x-access-token"];
 
-    // Check if the token is present
     if(!token){
         return res.status(403).send({
-            message : "No token provided. Please login"
+            message : "Please login for the token."
         });
     }
-
-    // Validate the token
-    jwt.verify(token, authConfig.SecretKey, (err, decoded) => {
+    
+    // Validating for valid token
+    jwt.verify(token, authConfig.SecretKey, (err, decoded) => { // decodes the userId from the token and assigns it to the req.body for further use.
         if(err){
             return res.status(401).send({
                 message : "unauthorized!"
             });
         }
-        // Read the value of the user id and set it in the request for further use
         req.userId = decoded.id;
         next();
     })
@@ -29,11 +27,13 @@ const verifyToken = (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
     const user = await User.findOne({userId : req.userId});
+
     if(user && user.userType == constants.userTypes.admin){
         next();
-    }else{
+    }
+    else{
         return res.status(403).send({
-            message : "Only admin can check this."
+            message : "Only admin can request for this."
         });
     }
 }
@@ -43,34 +43,34 @@ const isValideUserReqParams = async (req, res, next) => {
         const user = await User.find({userId : req.params.id});
         if(!user){
             return res.status(400).send({
-                message : "Userid passed is not present"
+                message : "User_Id passed is not present in the database."
             })
         }
         next();
-    }catch(err){
-        console.log("error while reading the user info", err.message)
+    }
+    catch(err){
         return res.status(500).send({
-            message : "Internal server error"
+            message : "Internal server error. Please try again."
         })
     }
 }
 
 const isAdminOrOwner = async (req, res, next) => {
-    try {
+    try{
         const callingUser = await User.findOne({userId : req.userId});
 
         if(callingUser.userType == constants.userTypes.admin || callingUser.userId == req.params.id){
             next();
-        }else{
-            return res.status(403).send({// 403 - forbidden
-                message : "Only the user or the owner are allowrd to make this call"
+        }
+        else{
+            return res.status(403).send({
+                message : "Only the admin or the owner are allowrd to make this request."
             })
         }
-
-    }catch(err){
-        console.log("error while reading the user info", err.message)
+    }
+    catch(err){
         return res.status(500).send({
-            message : "Internal server error"
+            message : "Internal server error. Please try again."
         })
     }
 }

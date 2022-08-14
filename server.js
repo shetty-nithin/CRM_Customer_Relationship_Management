@@ -1,126 +1,100 @@
 /**
- * this is the starting point of the application
+ * Starting point of the CRM application
  */
-
 
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const dbConfig = require("./configs/db.config");
 const serverConfig = require('./configs/server.config');
-
-const mongoose = require("mongoose");
 const User = require("./models/user.model");
-const bcrypt = require("bcryptjs");
 
-/**
- * Register the body-parser middleware
- */
-app.use(bodyParser.json()); // only for json object
-app.use(bodyParser.urlencoded({extended : true})); // false only for string and true for all the data types
+// parse the HTTP post request and populate it into the req.body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
 
 
-/**
- * Initialize the  connection to the mongoDB
- */
 mongoose.connect(dbConfig.DB_URL);      
 const db = mongoose.connection;
-db.on("error", () => {
+db.on("error", () => { //'on' signifies the event will be called every time that it occurred
     console.log("error while connecting to the mongoDB");
 });
-db.once("open", () => {
+db.once("open", () => { //'once' signifies that the event will be called only once i.e the first time
     console.log("Connected to the mongoDB");
     init();
 });
 
-/**
- * Creating the Admin user at the boot time.
- */
+
 async function init(){
-    
     try{
         await User.collection.drop();
-        /**
-         * Check if the admin user is already present
-         */
-        // let adminUser = await User.findOne({userId : "admin"});
-        // if(adminUser){
-        //     console.log("ADMIN is already exist");
-        //     return;
-        // }
         
         const adminUser = await User.create({
-                name : "Nithin Shetty",
-                userId : "admin",
-                password : bcrypt.hashSync("welcome1", 8),
-                email : "shettynithin744@gmail.com",
-                userType : "ADMIN",
+            name : "admin",
+            userId : "admin",
+            password : bcrypt.hashSync("welcome1", 8),
+            email : "admin@gmail.com",
+            userType : "ADMIN",
         });
         const user1 = await User.create({
-                name : "user1",
-                userId : "u1",
-                password : bcrypt.hashSync("welcome1", 8),
-                email : "shettynithin007@gmail.com",
-                userType : "CUSTOMER",
+            name : "cust1",
+            userId : "c1",
+            password : bcrypt.hashSync("welcome1", 8),
+            email : "cust1@gmail.com",
+            userType : "CUSTOMER",
         });
         const user2 = await User.create({
-            name : "user2",
-            userId : "u2",
+            name : "cust2",
+            userId : "c2",
             password : bcrypt.hashSync("welcome1", 8),
-            email : "user2@gmail.com",
+            email : "cust2@gmail.com",
             userType : "CUSTOMER",
         });
         const user3 = await User.create({
-            name : "user3",
-            userId : "u3",
+            name : "cust3",
+            userId : "c3",
             password : bcrypt.hashSync("welcome1", 8),
-            email : "user3@gmail.com",
+            email : "cust3@gmail.com",
             userType : "CUSTOMER",
             userStatus : "PENDING"
         });
-        const user4 = await User.create({
-            name : "user4",
-            userId : "u4",
+        const eng1 = await User.create({
+            name : "eng1",
+            userId : "e1",
             password : bcrypt.hashSync("welcome1", 8),
-            email : "user4@gmail.com",
+            email : "eng1@gmail.com",
             userType : "ENGINEER",
             userStatus : "APPROVED"
         });
-        const user5 = await User.create({
-            name : "user5",
-            userId : "u5",
+        const eng2 = await User.create({
+            name : "eng2",
+            userId : "e2",
             password : bcrypt.hashSync("welcome1", 8),
-            email : "user5@gmail.com",
+            email : "eng2@gmail.com",
             userType : "ENGINEER",
             userStatus : "APPROVED"
         });
-        const user6 = await User.create({
-            name : "user6",
-            userId : "u6",
+        const eng3 = await User.create({
+            name : "eng3",
+            userId : "e3",
             password : bcrypt.hashSync("welcome1", 8),
-            email : "user6@gmail.com",
+            email : "eng3@gmail.com",
             userType : "ENGINEER",
             userStatus : "APPROVED"
         });
-        // console.log(adminUser, user1, user2, user3, user4, user5, user6);
-
-    } catch(err){
-        console.log("err i db initialization : ", err.message);
+    }catch(err){
+        console.log("Error found while initializing the data to the DB : ", err.message);
     }
 }
 
-
-/**
- * we need to connect router to the server
- */
-require("./routes/auth.route")(app); //this registers the server with the route
+require("./routes/auth.route")(app);
 require("./routes/user.route")(app);
 require("./routes/ticket.route")(app);
 
-
-
-
-app.listen(serverConfig.PORT, () => {
+// exporting for integration testing purpose
+module.exports = app.listen(serverConfig.PORT, () => {
     console.log(`Server is up on the port ${serverConfig.PORT}`);
 })

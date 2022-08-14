@@ -55,13 +55,10 @@ exports.createTicket = async (req, res) => {
                 engineer.ticketsAssigned.push(ticketCreated._id);
                 await engineer.save();
             }
-
+            
             sendNotificationReq(`Ticket created with id : ${ticketCreated._id}`,"ticket has raised", `${customer.email}, ${engineer.email}, shettynithin007@gmail.com`, "CRM APP");
-            // sendNotificationReq(`Ticket created with id : ${ticketCreated._id}`,"ticket has raised", `shettynithin007@gmail.com`, "CRM APP");
-            res.status(201).send(ticketCreated);
+            return res.status(200).send(ticketCreated);
         }
-
-        
     }catch(err){
         console.log("Error while inserting the object into the DB", err.message);
         return res.status(500).send({
@@ -74,32 +71,38 @@ exports.createTicket = async (req, res) => {
 
 
 exports.getAllTickets = async (req, res) => {
-    // need to find the userType. And depending on the userType, we have to frame the search field
-    const user = await User.findOne({userId : req.userId});
-    const qureyObj = {};
-    const ticketsCreated = user.ticketsCreated;
-    const ticketsAssigned = user.ticketsAssigned;
+    try{
+        // need to find the userType. And depending on the userType, we have to frame the search field
+        const user = await User.findOne({userId : req.userId});
+        const qureyObj = {};
+        const ticketsCreated = user.ticketsCreated;
+        const ticketsAssigned = user.ticketsAssigned;
+        if(user.userType == constants.userTypes.customer){
+            // query for fetching all the ticket raised by the user
+            if(!ticketsCreated){
+                return res.status(200).send({
+                    message : "No ticket raised yet"
+                })
+            }
     
-    if(user.userType == constants.userTypes.customer){
-        // query for fetching all the ticket raised by the user
-        if(!ticketsCreated){
-            return res.status(200).send({
-                message : "No ticket raised yet"
-            })
+            qureyObj["_id"] = { $in : ticketsCreated}
         }
-
-        qureyObj["_id"] = { $in : ticketsCreated}
+        else if(user.userType == constants.userTypes.engineer){
+            // query object for fetching all the tickets assigned/created to/by the engineer/user
+            qureyObj["$or"] = [{"_id" : { $in : ticketsCreated}}, {"_id" : { $in : ticketsAssigned}}]
+        }
+    
+        const tickets = await Ticket.find(qureyObj);
+        return res.status(200).send(tickets);  
     }
-    else if(user.userType == constants.userTypes.engineer){
-        // query object for fetching all the tickets assigned/created to/by the user
-        qureyObj["$or"] = [{"_id" : { $in : ticketsCreated}}, {"_id" : { $in : ticketsAssigned}}]
+    catch(err){
+        console.log("Error while inserting the object into the DB", err.message);
+        return res.status(500).send({
+            message : "internal server error"
+        })
     }
-    console.log(qureyObj);
-
-    const tickets = await Ticket.find(qureyObj);
-    return res.status(200).send(tickets);
 }
-
+    
 
 exports.updateTicket = async (req, res) => {
     try {  
