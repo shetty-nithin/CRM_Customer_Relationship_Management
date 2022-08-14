@@ -1,5 +1,5 @@
 # Customer Relationship Management [CRM]
-
+---
 <!-- [![Contributors][contributors-shield]][contributors-url] -->
 <!-- [![Forks][forks-shield]][forks-url]
 [![Issues][issues-shield]][issues-url] -->
@@ -10,7 +10,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
----
 
 CRM software is a tool that's designed to help an organization offer thier customers a unique and seamless experience, as well as build better relationships by providing a complete picture of all customer interactions. 
 
@@ -40,7 +39,6 @@ This is a simple CRM system, made as a final project for Bakend Development cour
 
 <!-- GETTING STARTED -->
 ## Installation
----
 
 1. Clone the repository
    ```sh
@@ -64,11 +62,13 @@ This is a simple CRM system, made as a final project for Bakend Development cour
    ```
 
 ## Demo
-
+SignUp and SignIn <br/>
 https://user-images.githubusercontent.com/62413993/184549214-d6f96d47-b413-422a-84c0-0232d7359c32.mp4
 
+Ticket <br/>
 https://user-images.githubusercontent.com/62413993/184549255-3dff1ff0-fbd6-4369-9301-2919931b132e.mp4
 
+Admin Operations <br/>
 https://user-images.githubusercontent.com/62413993/184549292-d596c4f0-2de1-495e-b818-8d8fa18129a1.mp4
 
 
