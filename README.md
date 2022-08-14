@@ -65,14 +65,11 @@ This is a simple CRM system, made as a final project for Bakend Development cour
 
 ## Demo
 
-1. SignUp and SignIn <br/>
-https://user-images.githubusercontent.com/62413993/184548981-62531a24-fb2e-4230-ae4d-7e7ed6a5d63d.mp4
+https://user-images.githubusercontent.com/62413993/184549214-d6f96d47-b413-422a-84c0-0232d7359c32.mp4
 
-2. Ticket <br/>
-https://user-images.githubusercontent.com/62413993/184548999-a1277ef8-c019-48d0-a2ad-d1b78817657b.mp4
+https://user-images.githubusercontent.com/62413993/184549255-3dff1ff0-fbd6-4369-9301-2919931b132e.mp4
 
-3. Admin Operations <br/>
-https://user-images.githubusercontent.com/62413993/184549016-a9e2281e-e2cb-4188-b5d3-5a47045cec03.mp4
+https://user-images.githubusercontent.com/62413993/184549292-d596c4f0-2de1-495e-b818-8d8fa18129a1.mp4
 
 
 <!-- MARKDOWN LINKS -->
