@@ -33,9 +33,7 @@ This is a simple CRM system, made as a final project for Bakend Development cour
 ### Built with : 
 
 * [![MongoDB][MongoDB]][MongoDB-url]
-
 * [![Express.js][Express.js]][Express-url]
-
 * [![Node.js][Node.js]][Node-url]
 
 <br/>
@@ -66,12 +64,16 @@ This is a simple CRM system, made as a final project for Bakend Development cour
    ```
 
 ## Demo
-1. SignUp and SignIn <br/>[SignUp and SignIn](../../../../Videos/Captures/signup%20and%20signin.mp4)
+
+1. SignUp and SignIn <br/>
+https://user-images.githubusercontent.com/62413993/184548981-62531a24-fb2e-4230-ae4d-7e7ed6a5d63d.mp4
 
 2. Ticket <br/>
-
+https://user-images.githubusercontent.com/62413993/184548999-a1277ef8-c019-48d0-a2ad-d1b78817657b.mp4
 
 3. Admin Operations <br/>
+https://user-images.githubusercontent.com/62413993/184549016-a9e2281e-e2cb-4188-b5d3-5a47045cec03.mp4
+
 
 <!-- MARKDOWN LINKS -->
 [forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
