@@ -10,7 +10,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
----
+<!-- --- -->
 
 CRM software is a tool that's designed to help an organization to offer thier customers a unique and seamless experience, as well as build better relationships by providing a complete picture of all customer interactions. 
 
@@ -49,7 +49,6 @@ Through CRM, customers can post their issues with the product or with the servic
 <br/>
 
 ## Installation
----
 <br/>
 
 __Installation & Initial Configuration of CRM_App__
@@ -137,14 +136,15 @@ __Installation & Initial Configuration of Mail_Notification_App__
 <br/>
 
 ## Demo
----
 #### SignUp and SignIn <br/><br/>
-
+https://user-images.githubusercontent.com/62413993/196036125-7e9d2731-0d6e-4b9b-8be1-4e9b2ba3e49e.mp4
 
 #### Ticket <br/><br/>
-
+https://user-images.githubusercontent.com/62413993/196036140-64ba2242-f7b4-4670-8e56-18380342ac0e.mp4
 
 #### Admin Operations <br/><br/>
+https://user-images.githubusercontent.com/62413993/196036164-a2e3f474-b18b-4c21-8f8d-83a4a4fb4663.mp4
+
 
 <!-- MARKDOWN LINKS -->
 [forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
