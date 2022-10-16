@@ -1,11 +1,8 @@
-// This is used to initiate the connection with mongodb memory server
-
 const mongoose = require("mongoose");
-const {MongoMemoryServer} = require("mongodb-memory-server");
+const { MongoMemoryServer } = require("mongodb-memory-server");
 
 let mongod;
 
-// connecting
 module.exports.connect = async () => {
     if(!mongod){
         mongod = await MongoMemoryServer.create();
@@ -17,7 +14,6 @@ module.exports.connect = async () => {
         mongoose.connect(uri, mongooseOpts); 
     }
 }
-
 
 // disconnecting and closing all the connections
 module.exports.closeDatabase = async () => {

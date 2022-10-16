@@ -12,9 +12,16 @@
 ## About The Project
 ---
 
-CRM software is a tool that's designed to help an organization offer thier customers a unique and seamless experience, as well as build better relationships by providing a complete picture of all customer interactions. 
+CRM software is a tool that's designed to help an organization to offer thier customers a unique and seamless experience, as well as build better relationships by providing a complete picture of all customer interactions. 
 
-This is a simple CRM system, made as a final project for Bakend Development course by [Relevel](https://relevel.com/home) guided by [Vishwa Mohan](https://www.linkedin.com/in/vishwa-mohan).
+Through CRM, customers can post their issues with the product or with the service by creating a tickets. And these tickets will be assigned to the to the dedicated engineers depending their status and all of these can be monitored and altered by the admin.
+
+<br/>
+
+### Moto & Credits :     
+* This is a simple CRM system, made as a one of the final project for Bakend Development course by [Relevel](https://relevel.com/home) guided by [Vishwa Mohan](https://www.linkedin.com/in/vishwa-mohan).
+
+<br/>
 
 ### Features : 
 * Sign up / Sign in 
@@ -28,7 +35,7 @@ This is a simple CRM system, made as a final project for Bakend Development cour
 * Notification via mail 
 <br/> Sending the mail to the creator and assigned engineer on raising the ticket. <br/>  (however, Notification is a different project. You can find that [here](https://github.com/shetty-nithin/Mail_Notification_Application))
 
-
+<br/>
 
 ### Built with : 
 
@@ -39,39 +46,105 @@ This is a simple CRM system, made as a final project for Bakend Development cour
 * [![Node.js][Node.js]][Node-url]
 
 <br/>
+<br/>
 
-<!-- GETTING STARTED -->
 ## Installation
 ---
+<br/>
 
-1. Clone the repository
+__Installation & Initial Configuration of CRM_App__
+<br/>
+
+1. Run the following command in the terminal to clone the repository
    ```sh
    git clone https://github.com/shetty-nithin/CRM_Customer_Relationship_Management
    ```
-2. Go to inside the root folder
+
+2. Go inside the root folder
 
 3. Install NPM packages
    ```
    npm install
    ```
-4. If you are not integrating the Notification feature, then comment out the notification_app related line of code.
+
+4. If you are not integrating the Notification feature, then comment out the notification_app related lines of code.
    ```javascript
-   sendNotificationReq(`Ticket created with id : ${ticketCreated._id}`,"ticket has raised", `${customer.email}, ${engineer.email}, shettynithin007@gmail.com`, "CRM APP");
+   sendNotificationReq(`Ticket created with id : ${ticketCreated._id}`,"ticket has raised", `${customer.email}, ${engineer.email}, yourmail@gmail.com`, "CRM APP");
    // from create ticket function of "controller/ticket.controller.js"
+
+
+   NOTIFICATION_REST_URL: process.env.NOTIFICATION_REST_URL
+   // from "configs/server.config.js"
    ``` 
 
-5. Run the server
+5. Inside the root folder create one more file with name ".env" and mention the port as below
+   ```javascript
+   PORT = 8000
+   ```
+
+6. Run the server
+   ```javascript
+   node server.js
+   ```
+<br/>
+<br/>
+
+__Installation & Initial Configuration of Mail_Notification_App__
+<br/>
+
+1. Come out of the CRM_App root folder.
+
+2. Run the following command in the terminal to clone the repository
+   ```sh
+   git clone https://github.com/shetty-nithin/Mail_Notification_Application.git
+   ```
+   
+3. Go inside the Mail_Notification_App root folder
+
+4. Install NPM packages
+   ```
+   npm install
+   ```
+
+5. Inside the root folder create one more file with name ".env" and mention the port as below
+   ```javascript
+   PORT = 7777
+   ```
+
+6. Inside the ".env" file of CRM_App include the notifcation api address just below the PORT number as below 
+   ```javascript
+   PORT = 8000
+   NOTIFICATION_REST_URL = "http://localhost:7777/notiserve/api/v1/notifications"
+   ```
+
+7. Uncomment the notification_app related lines of code.
+   ```javascript
+   sendNotificationReq(`Ticket created with id : ${ticketCreated._id}`,"ticket has raised", `${customer.email}, ${engineer.email}, yourmail@gmail.com`, "CRM APP");
+   // from create ticket function of "CRM/controller/ticket.controller.js"
+
+   // Note : Considered "CRM" as the root folder of CRM_App
+
+   NOTIFICATION_REST_URL: process.env.NOTIFICATION_REST_URL
+   // from "CRM/configs/server.config.js"
+   ``` 
+
+8. Run the server
    ```javascript
    node server.js
    ```
 
+<br/>
+<br/>
+
 ## Demo
-1. SignUp and SignIn <br/>[SignUp and SignIn](../../../../Videos/Captures/signup%20and%20signin.mp4)
+---
+#### SignUp and SignIn <br/><br/>
 
-2. Ticket <br/>
+
+#### Ticket <br/><br/>
 
 
-3. Admin Operations <br/>
+#### Admin Operations <br/><br/>
 
 <!-- MARKDOWN LINKS -->
 [forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge

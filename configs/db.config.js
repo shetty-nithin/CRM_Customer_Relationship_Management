@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== "production"){
+    require('dotenv').config();
+}
+
 module.exports = {
-    DB_URL : "mongodb://localhost/crmDB"
+    DB_URL: process.env.MONGO_DB_URL
 }

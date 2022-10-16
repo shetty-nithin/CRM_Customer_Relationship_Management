@@ -9,7 +9,7 @@ const ticketSchema = new mongoose.Schema({
     ticketPriority : {
         type : Number,
         required : true,
-        default : 4
+        default : 5
     },
     description : {
         type : String,
@@ -26,16 +26,7 @@ const ticketSchema = new mongoose.Schema({
     },
     assignee : {
         type : String
-    },
-    createdAt : {
-        type : Date,
-        immutable : true,
-        default : () => Date.now()
-    },
-    updatedAt : {
-        type : Date,
-        default : () => Date.now()
     }
-}, {versionKey : false}) // this will ensure __v is not created by mongoose
+}, {timestamps: true ,versionKey: false})
 
 module.exports = mongoose.model("Ticket", ticketSchema);

@@ -4,7 +4,6 @@ const User = require("../models/user.model");
 const constants = require("../utils/constants");
 
 const verifyToken = (req, res, next) => {
-
     const token = req.headers["x-access-token"];
 
     if(!token){
@@ -13,8 +12,7 @@ const verifyToken = (req, res, next) => {
         });
     }
     
-    // Validating for valid token
-    jwt.verify(token, authConfig.SecretKey, (err, decoded) => { // decodes the userId from the token and assigns it to the req.body for further use.
+    jwt.verify(token, authConfig.SecretKey, (err, decoded) => {
         if(err){
             return res.status(401).send({
                 message : "unauthorized!"
@@ -59,7 +57,7 @@ const isAdminOrOwner = async (req, res, next) => {
     try{
         const callingUser = await User.findOne({userId : req.userId});
 
-        if(callingUser.userType == constants.userTypes.admin || callingUser.userId == req.params.id){
+        if(callingUser.userType === constants.userTypes.admin || req.userId === req.params.id){
             next();
         }
         else{

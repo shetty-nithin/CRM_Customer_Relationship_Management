@@ -7,7 +7,7 @@ const isValidUser = async (req, res, next) => {
     const ticket = await Ticket.findOne({_id : req.params.id});
 
     if(callingUser.userType == constants.userTypes.customer){
-        const reporter = ticket.reporter; // reporter contains the userId of the reporter
+        const reporter = ticket.reporter;
         if(callingUser.userId != reporter){
             return res.status(403).send({
                 message : "You are not the creator of this ticket."

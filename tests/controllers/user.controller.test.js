@@ -1,6 +1,6 @@
 const User = require("../../models/user.model");
-const {mockRequest, mockResponse} = require("../interceptor");
-const {findAll} = require("../../controllers/user.controller");
+const { mockRequest, mockResponse } = require("../interceptor");
+const { findAll } = require("../../controllers/user.controller");
 
 
 const userTestPayload = {
@@ -13,7 +13,7 @@ const userTestPayload = {
     ticketsAssigned : [],
 }
 
-/*
+
 describe("testing findAll method", () => {
     it("scenario with no query in the passed request", async () => {
         // mocking for user.findAll
@@ -21,10 +21,10 @@ describe("testing findAll method", () => {
         // mocking for req and res
         const req = mockRequest();
         const res = mockResponse();
-
         req.query = {};
 
         await findAll(req, res);
+        //Assertions
         expect(userSpy).toHaveBeenCalled();
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.send).toHaveBeenCalledWith(
@@ -55,7 +55,6 @@ describe("testing findAll method", () => {
         )
     })
     
-
     it("error while calling the User.findAll method", async () => {
         const userSpy = jest.spyOn(User, 'find').mockReturnValue(Promise.reject([new Error("error while testing")]));
         const req = mockRequest();
@@ -66,12 +65,11 @@ describe("testing findAll method", () => {
         await findAll(req, res);
         expect(userSpy).toHaveBeenCalled();
         expect(res.status).toHaveBeenCalledWith(500);
-        // expect(res.send).toHaveBeenCalledWith({
-        //     message : "Internal server error"
-        // });    
+        expect(res.send).toHaveBeenCalledWith({
+            message : "Internal server error"
+        });    
     })
 });
-*/
 
 describe("testing update method", () => {
     it("req : updating by the user", () => {

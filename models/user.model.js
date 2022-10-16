@@ -22,15 +22,6 @@ const userSchema = new mongoose.Schema({
         minLength : 10,
         unique : true
     },
-    createdAt : {
-        type : Date,
-        immutable : true,
-        default : () => Date.now()
-    },
-    updatedAt : {
-        type : Date,
-        default : () => Date.now()
-    },
     userType : {
         type : String,
         required : true,
@@ -51,6 +42,6 @@ const userSchema = new mongoose.Schema({
         type : [mongoose.SchemaTypes.objectId],
         ref : "Ticket"
     }
-});
+}, {timestamps: true});
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", userSchema);
