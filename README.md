@@ -10,6 +10,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+---
 
 CRM software is a tool that's designed to help an organization to offer thier customers a unique and seamless experience, as well as build better relationships by providing a complete picture of all customer interactions. 
 
@@ -39,13 +40,16 @@ Through CRM, customers can post their issues with the product or with the servic
 ### Built with : 
 
 * [![MongoDB][MongoDB]][MongoDB-url]
+
 * [![Express.js][Express.js]][Express-url]
+
 * [![Node.js][Node.js]][Node-url]
 
 <br/>
 <br/>
 
 ## Installation
+---
 <br/>
 
 __Installation & Initial Configuration of CRM_App__
@@ -139,7 +143,6 @@ __Installation & Initial Configuration of Mail_Notification_App__
 
 #### Ticket <br/><br/>
 
-https://user-images.githubusercontent.com/62413993/184549292-d596c4f0-2de1-495e-b818-8d8fa18129a1.mp4
 
 #### Admin Operations <br/><br/>
 
